@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="./bird.png"/>
+    <link rel="stylesheet" href="./style.css">
+    <title>me-flappy-bird</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+</body>
+    <script>
+        async function main() {
+            const canvas = document.getElementById("canvas");
+            const ctx = canvas.getContext("2d");
+            let yTop = 0;
+            let yVelocity = 0;
+            let yAcceleration = 9.8;
+
+            let xTowers = 268;
+            let TOWER_HEIGHT = 51;
+
+            document.onkeydown = () => {
+                yVelocity = -18;
+            }
+        
+            for(let i = 0 ; i < 100000 ; i++) {
+                yVelocity = yVelocity + yAcceleration * 0.0333333333;
+                yTop = yTop + yVelocity * 0.0333333333;
+                ctx.clearRect(0, 0, 700, 500)
+                ctx.beginPath();
+                ctx.rect(10, yTop, 32, 21);
+                ctx.fill();
+
+
+                ctx.beginPath();
+                ctx.rect(xTowers, 0, 32, TOWER_HEIGHT);
+                ctx.fill();
+
+
+                ctx.beginPath();
+                ctx.rect(xTowers, 99, 32, TOWER_HEIGHT);
+                ctx.fill();
+
+
+                xTowers = xTowers - 1;
+
+                await new Promise((response) => setInterval(response, 0.0333333333 * 1000))
+            }
+        }
+        main();
+    </script>
+</html>
